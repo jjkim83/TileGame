@@ -31,6 +31,10 @@ int WINAPI WinMain(
 )
 
 {
+	int width = 1024;
+	int height = 768;
+	bool isWindow = true;	//false 로 바꾼후 풀스크린 모드로
+
 	//윈도우스타일을 만들고 등록
 	WNDCLASS wc;
 	wc.style = CS_HREDRAW | CS_VREDRAW;
@@ -56,7 +60,7 @@ int WINAPI WinMain(
 		"02Game",
 		WS_OVERLAPPEDWINDOW,		// 윈도우스타일
 		CW_USEDEFAULT, CW_USEDEFAULT,		// 시작위치 : x, y 
-		1024, 768,	//해상도. 너비/높이
+		width, height, //해상도. 너비/높이
 		0,			// 부모창의 핸들. 사용안함.
 		0,			// 메뉴핸들. 사용안함.
 		hInstance,	// os와 윈도우 연결이되서. os에서 윈도우를 관리할수있따.
@@ -71,6 +75,17 @@ int WINAPI WinMain(
 	// hWmd : 하나의 윈도우를 가리키는 핸들(아이디)
 	ShowWindow(hWnd, nCmdShow);
 	UpdateWindow(hWnd);
+
+	//실제 게임 영역 확보
+	if (true == isWindow)
+	{
+		RECT clientRect;
+		GetClientRect(hWnd, &clientRect);
+		MoveWindow(hWnd, 0, 0,
+			width + (width - clientRect.right),
+			height + (height - clientRect.bottom),
+			TRUE);
+	}
 
 	// directX 
 
@@ -90,13 +105,13 @@ int WINAPI WinMain(
 	//Device를 통해서 화면에 어떻게 보여질지를 결정
 	D3DPRESENT_PARAMETERS d3dpp;
 	ZeroMemory(&d3dpp, sizeof(d3dpp));
-	d3dpp.BackBufferWidth = 1280;
-	d3dpp.BackBufferHeight = 768;
+	d3dpp.BackBufferWidth = width;
+	d3dpp.BackBufferHeight = height;
 	d3dpp.BackBufferFormat = D3DFMT_UNKNOWN;
 	d3dpp.BackBufferCount = 1;	// 더블 버퍼링 개수
 	d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;
 	d3dpp.hDeviceWindow = hWnd;
-	d3dpp.Windowed = true;
+	d3dpp.Windowed = isWindow;
 	d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE;
 
 	//디바이스를 생성
@@ -107,6 +122,11 @@ int WINAPI WinMain(
 		D3DCREATE_HARDWARE_VERTEXPROCESSING,
 		&d3dpp,
 		&dxDevice);
+
+	if (FAILED(hr))
+	{
+		return 0;
+	}
 
 	float fps = 60.0f;
 	float frameInverval = 1.0f / fps;
