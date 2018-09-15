@@ -1,0 +1,9 @@
+﻿  Sprite.cpp
+c:\users\atents\documents\github\tilegame\0908\02game_02\02game\sprite.cpp(21): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+c:\users\atents\documents\github\tilegame\0908\02game_02\02game\sprite.cpp(98): error C2660: 'Frame::Init': 함수는 6개의 매개 변수를 사용하지 않습니다.
+c:\users\atents\documents\github\tilegame\0908\02game_02\02game\sprite.cpp(104): error C2660: 'Frame::Init': 함수는 6개의 매개 변수를 사용하지 않습니다.
+c:\users\atents\documents\github\tilegame\0908\02game_02\02game\sprite.cpp(134): warning C4018: '<=': signed 또는 unsigned가 일치하지 않습니다.
+c:\users\atents\documents\github\tilegame\0908\02game_02\02game\sprite.cpp(157): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+c:\users\atents\documents\github\tilegame\0908\02game_02\02game\sprite.cpp(188): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+  Frame.cpp
+  코드를 생성하고 있습니다...
